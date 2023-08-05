@@ -1,55 +1,40 @@
 /*
-Include multiple letter cases, numbers, and symbols.
-Don’t use dictionary words or commonly combined dictionary words.
-Don’t use obvious number/letter substitutions.
-Create a password that’s at least 12 characters in length.
+This program generates a password that:
+- contains non-lowercase-letter characters,
+- is 18 characters long, with chunks of 6 separated by dashes, and
+- attempts to be somewhat pronounceable and memorable.
 */
 
 const all = ["aeiou", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789", "!\"#$%&'*+,./:;=?@\\^`|~[]{}()<>"];
 
-// Randomly select from the list
-const randomSelect = l => l[Math.floor(Math.random() * l.length)];
+// Select a random character from string
+randChar = e => e[Math.floor(Math.random() * e.length)];
 
-const generatePassword = () => {
-    let check = 0;
-    let password = "";
-    while (check == 0) {
-        password = "";
-        var char;
-        var type = 2;
-        for (let i = 0; i < 18; i++) {
-            if (Math.random() > 0.2) {
-                if (Math.random() > type ^ 0 ? 0.7 : 0.4) {
-                    // lower case
-                    type = 2;
-                    char = randomSelect(all[type]);
-                } else {
-                    // vowels
-                    type = 0;
-                    char = randomSelect(all[type]);
-                }
-            } else {
-                check++;
-                if (Math.random() > 0.3) {
-                    type = 1;
-                    char = randomSelect(all[type]);
-                } else {
-                    if (Math.random() > 0.4) {
-                        type = 3;
-                        char = randomSelect(all[type]);
-                    } else {
-                        type = 4;
-                        char = randomSelect(all[type]);
-                    }
-                }
-            }
-            password += char;
-            if (i == 5 || i == 11) password += "-";
-        }
+generatePassword = () => {
+    // The count of lowercase characters is tracked to prevent the password from being unsecure.
+    let e = 0, // Count of lowercase vowels
+        a = ""; // The password
+    // Loop until the password is valid
+    for (; 0 == e;) {
+        var t; // The current character
+        a = "";
+        var l = 2;
+        for (let n = 0; n < 18; n++)
+            Math.random() > .2
+                ? t = Math.random() > l ^ 0 || .4
+                    ? randChar(all[l = 2])
+                    : randChar(all[l = 0])
+                : (e++, t = Math.random() > .3
+                    ? randChar(all[l = 1])
+                    : Math.random() > .4
+                        ? randChar(all[l = 3])
+                        : randChar(all[l = 4])),
+                a += t, // Append the character to the password
+                5 ^ n && 11 ^ n || (a += "-"); // Add dashes between chunks of 6 characters
     }
-    display.innerHTML = password;
+    display.innerHTML = a; // Display the password
 };
 
-const display = document.getElementById("password");
-const generate = document.getElementById("generate");
+display = document.getElementById("password");
+generate = document.getElementById("generate");
 generate.addEventListener("click", generatePassword);
