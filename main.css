@@ -1,7 +1,6 @@
 body {
     font-family: "Open Sans", "PT Sans", Calibri, Tahoma, sans-serif;
-    text-align: center;
-    background-color: #f5f5f5
+    text-align: center
 }
 
 .vertical-pad {
@@ -17,9 +16,39 @@ h1 {
     font-size: 2.5em;
     font-weight: 500;
     margin: .5em 0;
-    pointer-events: none;
     letter-spacing: -.5px;
-    transition-duration: 100ms
+    position: relative;
+    max-width: 400px;
+    display: inline;
+    padding: 0 8px;
+    transition-duration: 200ms;
+    cursor: grab
+}
+
+h1::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    border-radius: 12px;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #e74949;
+    z-index: -1;
+    transition: transform 300ms ease
+}
+
+h1:active::before {
+    transform: scaleX(1);
+    transform-origin: bottom left
+}
+
+h1:active {
+    color: #f5f5f5;
+    cursor: grabbing
 }
 
 #password,
@@ -48,10 +77,14 @@ button {
     max-width: 350px
 }
 
+body,
+button {
+    background-color: #f5f5f5
+}
+
 button {
     font-size: 1em;
     width: 128px;
-    background-color: #f5f5f5;
     padding: 6px 8px;
     margin: 0 4px;
     line-height: 20px;

@@ -1,10 +1,3 @@
-/*
-This program generates a password that:
-- contains non-lowercase-letter characters,
-- is 18 characters long, with chunks of 6 separated by dashes, and
-- attempts to be somewhat pronounceable and memorable.
-*/
-
 const src = "https://github.com/piano-miles/password-generator";
 
 try {
@@ -52,12 +45,14 @@ const generatePassword = () => {
                 Math.random() > .2 ?
                     t = Math.random() > l ^ 0 || .4 ?
                         randChar(x[l = 2]) :
-                        randChar(x[l = 0]) :
-                    (e++, t = Math.random() > .3 ?
-                        randChar(x[l = 1]) :
-                        Math.random() > .4 ?
-                            randChar(x[l = 3]) :
-                            randChar(x[l = 4])), a += t, // Append the character to the password
+                        randChar(x[l = 0]) : (
+                        e++,
+                        t = Math.random() > .3 ?
+                            randChar(x[l = 1]) :
+                            Math.random() > .4 ?
+                                randChar(x[l = 3]) :
+                                randChar(x[l = 4])),
+                    a += t, // Append the character to the password
                     5 ^ n && 11 ^ n || (a += "-"); // Add dashes between chunks of 6 characters
         }
         display.innerHTML = a; // Display the password
@@ -79,9 +74,14 @@ generate.addEventListener("click", generatePassword);
 copy.addEventListener("click", () => {
     try {
         const e = document.createElement("textarea");
-        e.value = display.innerHTML, document.body.appendChild(e), e.select(), e.setSelectionRange(0, 99999), // For mobile devices
+        e.value = display.innerHTML,
+            document.body.appendChild(e),
+            e.select(),
+            e.setSelectionRange(0, 99999), // For mobile devices
             //document.execCommand("copy"), // Deprecated
-            navigator.clipboard.writeText(e.value), document.body.removeChild(e), Swal.fire({
+            navigator.clipboard.writeText(e.value),
+            document.body.removeChild(e),
+            Swal.fire({
                 title: "Copied!",
                 text: "The password has been copied to your clipboard.",
                 icon: "success",
