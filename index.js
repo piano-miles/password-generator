@@ -14,7 +14,9 @@ try {
                 <div class="buttons">
                     <button id="generate">Generate Password</button> <button id="copy">Copy to Clipboard</button>
                 </div>
-                <button id="source" onclick="window.location.href='${src}';">View Source</button>
+                <a href="${src}">
+                    <button id="source">View Source</button>
+                </a>
             </main>
         </div>`
     document.body.appendChild(z);
