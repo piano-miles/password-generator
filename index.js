@@ -1,7 +1,7 @@
-const src = "https://github.com/piano-miles/password-generator";
+const src = 'https://github.com/piano-miles/password-generator'
 
 try {
-    let z = document.createElement("main");
+    const z = document.createElement('main')
     z.innerHTML =
         `<div class="vertical-pad">
             <header>
@@ -19,84 +19,86 @@ try {
                 </a>
             </main>
         </div>`
-    document.body.appendChild(z);
+    document.body.appendChild(z)
 } catch (e) {
     Swal.fire({
-        title: "Error!",
-        text: "An error occurred while creating the page (code 1).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n" + e,
-        icon: "error",
-        confirmButtonText: "Ok."
-    });
+        title: 'Error!',
+        text: 'An error occurred while creating the page (code 1).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n' + e,
+        icon: 'error',
+        confirmButtonText: 'Ok.'
+    })
 }
 
-const x = ["aeiou", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789", "!\"#$%&'*+,./:;=?@\\^`|~[]{}()<>"];
+const x = ['aeiou', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz', '0123456789', '!"#$%&\'*+,./:;=?@\\^`|~[]{}()<>']
 
 // Select a random character from string
-const randChar = e => e[Math.floor(Math.random() * e.length)];
+const randChar = e => e[Math.floor(Math.random() * e.length)]
 
 const generatePassword = () => {
     try {
         // The count of lowercase characters is tracked to prevent the password from being unsecure.
-        let e = 0, // Count of lowercase vowels
-            a = ""; // The password
+        let e = 0 // Count of lowercase vowels
+        let a = '' // The password
         // Loop until the password is valid
-        for (; 0 == e;) {
-            let t, l = 2; // t is the current character, l is the char type (vowel/uppercase/lowercase/number/symbol)
-            a = "";
+        for (; e == 0;) {
+            let t; // The current character, 
+            let l = 2 // The char type (vowel/uppercase/lowercase/number/symbol)
+            a = ''
             for (let n = 0; n < 18; n++)
-                Math.random() > .2 ?
-                    t = Math.random() > l ^ 0 || .4 ?
-                        randChar(x[l = 2]) :
-                        randChar(x[l = 0]) : (
+                Math.random() > 0.2
+                    ? t = Math.random() > l ^ 0 || 0.4
+                        ? randChar(x[l = 2])
+                        : randChar(x[l = 0])
+                    : (
                         e++,
-                        t = Math.random() > .3 ?
-                            randChar(x[l = 1]) :
-                            Math.random() > .4 ?
-                                randChar(x[l = 3]) :
-                                randChar(x[l = 4])),
+                        t = Math.random() > 0.3
+                            ? randChar(x[l = 1])
+                            : Math.random() > 0.4
+                                ? randChar(x[l = 3])
+                                : randChar(x[l = 4])),
                     a += t, // Append the character to the password
-                    5 ^ n && 11 ^ n || (a += "-"); // Add dashes between chunks of 6 characters
+                    5 ^ n && 11 ^ n || (a += '-') // Add dashes between chunks of 6 characters
         }
-        display.innerHTML = a; // Display the password
+        display.innerHTML = a // Display the password
     } catch (e) {
         Swal.fire({
-            title: "Error!",
-            text: "An error occurred while generating a password (code 2).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n" + e,
-            icon: "error",
-            confirmButtonText: "Ok."
-        });
+            title: 'Error!',
+            text: 'An error occurred while generating a password (code 2).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n' + e,
+            icon: 'error',
+            confirmButtonText: 'Ok.'
+        })
     }
-};
+}
 
-const display = document.getElementById("password");
-const generate = document.getElementById("generate");
-const copy = document.getElementById("copy");
+const display = document.getElementById('password')
+const generate = document.getElementById('generate')
+const copy = document.getElementById('copy')
 
-generate.addEventListener("click", generatePassword);
-copy.addEventListener("click", () => {
+generate.addEventListener('click', generatePassword)
+copy.addEventListener('click', () => {
     try {
-        const e = document.createElement("textarea");
+        const e = document.createElement('textarea')
         e.value = display.innerHTML,
             document.body.appendChild(e),
             e.select(),
             e.setSelectionRange(0, 99999), // For mobile devices
-            //document.execCommand("copy"), // Deprecated
+            // document.execCommand("copy"), // Deprecated
             navigator.clipboard.writeText(e.value),
             document.body.removeChild(e),
             Swal.fire({
-                title: "Copied!",
-                text: "The password has been copied to your clipboard.",
-                icon: "success",
-                confirmButtonText: "Ok!"
-            });
+                title: 'Copied!',
+                text: 'The password has been copied to your clipboard.',
+                icon: 'success',
+                confirmButtonText: 'Ok!'
+            })
     } catch (e) {
         Swal.fire({
-            title: "Error!",
-            text: "An error occurred while copying the text (code 3).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n" + e,
-            icon: "error",
-            confirmButtonText: "Ok."
-        });
+            title: 'Error!',
+            text: 'An error occurred while copying the text (code 3).\nPlease report this at https://github.com/piano-miles/password-generator/issues and paste this entire message.\n' + e,
+            icon: 'error',
+            confirmButtonText: 'Ok.'
+        })
     }
-});
+})
 
-generatePassword();
+generatePassword()
